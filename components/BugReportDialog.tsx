@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/Primitives";
 
 const DISMISSED_KEY = "oft-bug-report-dialog-dismissed";
-const ISSUE_URL = "https://github.com/zadescoxp/order-flow-screener/issues/new";
+const ISSUE_URL = "https://github.com/warly170183/OrderFlow-Screener/issues/new";
 const X_URL = "https://x.com/intent/post?text=I%20found%20a%20bug%20in%20the%20Order%20Flow%20Terminal";
 
 const DISMISS_EVENT = "oft-bug-report-dismissed";

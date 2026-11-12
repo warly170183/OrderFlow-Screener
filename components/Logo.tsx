@@ -35,4 +35,4 @@ export function GitHubIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-export const REPO_URL = "https://github.com/zadescoxp/order-flow-screener";
+export const REPO_URL = "https://github.com/warly170183/OrderFlow-Screener";

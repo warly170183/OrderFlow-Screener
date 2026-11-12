@@ -16,7 +16,7 @@ export const SITE = {
   description:
     "Open-source order flow terminal for crypto and FX: live footprint charts, VWAP, CVD, order book, depth, volume z-score and realized volatility.",
   url: resolveSiteUrl(),
-  repo: "https://github.com/zadescoxp/order-flow-screener",
+  repo: "https://github.com/warly170183/OrderFlow-Screener",
   themeColor: "#08090b",
   accent: "#d7f75b",
   keywords: [

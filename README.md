@@ -438,8 +438,8 @@ deploying a new venue.
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/zadescoxp/order-flow-screener.git
-cd order-flow-tracker
+git clone https://github.com/warly170183/OrderFlow-Screener.git
+cd OrderFlow-Screener
 npm install
 ```
 
@@ -722,6 +722,9 @@ For bugs, include the selected market, venue or currency pair, timeframe,
 browser, reproduction steps, and relevant console errors. Do not include API
 keys in reports.
 
-## License
+## License and origin
 
-Apache License 2.0.
+Apache License 2.0. This project is based on
+[zadescoxp/order-flow-screener](https://github.com/zadescoxp/order-flow-screener)
+(Apache-2.0); the original license and copyright notices are kept in `LICENSE`.
+The screener service, signal engine and forward-test tracker are additions.

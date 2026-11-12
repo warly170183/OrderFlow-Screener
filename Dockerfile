@@ -33,9 +33,9 @@ ENV PORT=3000
 
 LABEL org.opencontainers.image.title="order-flow-tracker" \
       org.opencontainers.image.description="Real-time order flow terminal for crypto and FX" \
-      org.opencontainers.image.source="https://github.com/zadescoxp/order-flow-screener" \
+      org.opencontainers.image.source="https://github.com/warly170183/OrderFlow-Screener" \
       org.opencontainers.image.licenses="Apache-2.0" \
-      org.opencontainers.image.url="https://github.com/zadescoxp/order-flow-screener"
+      org.opencontainers.image.url="https://github.com/warly170183/OrderFlow-Screener"
 
 RUN apk add --no-cache libc6-compat
 
