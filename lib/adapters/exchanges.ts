@@ -4,13 +4,13 @@
 
 import { BaseExchangeAdapter, num } from "./base";
 import type {
-  NormalizedTrade,
   NormalizedOrderBook,
   OrderBookLevel,
   Venue,
   LiquidationSide,
 } from "@/lib/types/market";
 import { FinnhubForexAdapter } from "./forex";
+import { BinanceFuturesAdapter } from "./binanceFutures";
 
 // ─── Helpers ─────────────────────────────────────────────────
 type DeribitLevel = [number, number] | [string, number, number];
@@ -452,7 +452,10 @@ export class BinanceSpotAdapter extends BaseExchangeAdapter {
   disconnect(): void { this.setStatus("offline"); this.stopPing(); this.ws?.close(); this.ws = null; }
 
   protected handleMessage(raw: unknown): void {
-    const msg = raw as any;
+    const msg = raw as {
+      e?: string; p: string; q: string; t: number; s: string; T: number; m: boolean;
+      lastUpdateId?: number; bids?: [string, string][]; asks?: [string, string][];
+    };
     if (msg.e === "trade") {
       const price = parseFloat(msg.p), qty = parseFloat(msg.q);
       this.emitTrade({ id: `bs-${msg.t}`, venue: this.venue, symbol: msg.s, timestamp: msg.T, localTimestamp: Date.now(), price, quantity: qty, quoteVolume: price * qty, side: msg.m ? "sell" : "buy", marketType: "spot", sequence: msg.t });
@@ -870,8 +873,7 @@ export function createAdapter(venue: Venue, symbol: string): BaseExchangeAdapter
   switch (venue) {
     case "finnhub-forex": return new FinnhubForexAdapter(symbol);
     case "binance-futures": {
-      const { BinanceFuturesAdapter } = require("./binanceFutures");
-      return new BinanceFuturesAdapter(symbol) as BaseExchangeAdapter;
+      return new BinanceFuturesAdapter(symbol);
     }
     case "bybit-futures":   return new BybitFuturesAdapter(symbol);
     case "bybit-spot":      return new BybitSpotAdapter(symbol);

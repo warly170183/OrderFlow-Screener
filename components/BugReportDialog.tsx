@@ -1,22 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/Primitives";
 
 const DISMISSED_KEY = "oft-bug-report-dialog-dismissed";
 const ISSUE_URL = "https://github.com/zadescoxp/order-flow-screener/issues/new";
 const X_URL = "https://x.com/intent/post?text=I%20found%20a%20bug%20in%20the%20Order%20Flow%20Terminal";
 
-export default function BugReportDialog() {
-  const [open, setOpen] = useState(false);
+const DISMISS_EVENT = "oft-bug-report-dismissed";
 
-  useEffect(() => {
-    if (window.localStorage.getItem(DISMISSED_KEY) !== "true") setOpen(true);
-  }, []);
+function subscribe(onChange: () => void) {
+  window.addEventListener("storage", onChange);
+  window.addEventListener(DISMISS_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(DISMISS_EVENT, onChange);
+  };
+}
+
+// The server snapshot reports "dismissed" so the dialog never renders during SSR.
+const getSnapshot = () => window.localStorage.getItem(DISMISSED_KEY) !== "true";
+const getServerSnapshot = () => false;
+
+export default function BugReportDialog() {
+  const open = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const dismiss = () => {
     window.localStorage.setItem(DISMISSED_KEY, "true");
-    setOpen(false);
+    window.dispatchEvent(new Event(DISMISS_EVENT));
   };
 
   if (!open) return null;
