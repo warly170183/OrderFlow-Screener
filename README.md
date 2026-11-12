@@ -24,6 +24,24 @@ pairs.
 The application is an analysis and screening tool. It does not place trades,
 manage orders, connect to brokerage accounts, or manage portfolios.
 
+## Screener service (new)
+
+Beyond the single-symbol terminal there is now a multi-asset screener: a Node
+service that streams OKX perpetuals, scores each one (0-100) from flow,
+participation, open interest, funding, liquidations and absorption, proposes a
+trade plan (entry, stop, TP1-TP3), follows every signal it emits and reports
+how those signals actually performed. It persists to disk, serves a read-only
+API and can push alerts to Telegram or a webhook.
+
+```bash
+npm run server   # service on 127.0.0.1:8787  (DEMO=1 for synthetic data)
+npm run dev      # then open http://localhost:3000/screener
+```
+
+Scores are heuristics, not validated predictions: the forward-test panel is how
+you find out whether they work. Details, API and caveats in
+[docs/screener.md](./docs/screener.md).
+
 ## Overview
 
 The terminal combines live WebSocket market data with a normalized order-flow
@@ -480,10 +498,11 @@ Run the test suite:
 npm test
 ```
 
-Run the linter:
+Run the linter and the type checker:
 
 ```bash
 npm run lint
+npm run typecheck
 ```
 
 ## Docker

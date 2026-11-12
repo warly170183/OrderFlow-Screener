@@ -258,6 +258,9 @@ export default function TopBar() {
         </Select>
       </div>
 
+      <Link className="ui-button" href="/screener" data-hint="Multi-asset screener and signals">
+        Screener
+      </Link>
       <a
         className="ui-button contribute-button is-primary"
         href={REPO_URL}
